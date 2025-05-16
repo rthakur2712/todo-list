@@ -6,7 +6,7 @@ import LoadingBar from 'react-top-loading-bar';
 import { useRef } from 'react';
 
 function App() {
-  const BACKEND_URL = process.env.BACKEND_URL;
+  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
   const [todos, setTodos] = useState([]);
   const loadingBar = useRef(null);
 
