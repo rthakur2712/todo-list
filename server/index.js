@@ -1,7 +1,7 @@
 require('dotenv').config('/.env');
 const express = require('express');
 const mongoose = require("mongoose");
-const Todo = require('../models/Todo');
+const Todo = require('./models/Todo');
 const app = express();
 const PORT = process.env.BACKEND_PORT ||3000;
 
