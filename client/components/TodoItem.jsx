@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useRef } from 'react'
 
 const TodoItem = ({todo,setTodos,loadingBar}) => {
-  const BACKEND_URL = "http://localhost:3000";
+  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
   const removeHandler = async()=>{
     loadingBar.current.continuousStart();
     console.log("entered removehandler",todo._id);

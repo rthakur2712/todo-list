@@ -3,7 +3,7 @@ import React, { useRef, useState } from 'react'
 
 const AddTodo = ({setTodos,loadingBar})=>{
 
-  const BACKEND_URL = "http://localhost:3000";
+  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
   const [inputValue, setInputValue] = useState('');
   const submitHandler = async(e)=>{
     // call the add todo functionality
