@@ -8,7 +8,7 @@ const PORT = process.env.BACKEND_PORT ||3000;
 app.use(express.json());
 const cors = require('cors');
 app.use(cors());
-
+BACKEND_PORT = process.env.BACKEND_PORT;
 
 MONGODB_URL = process.env.MONGODB_URL;
 console.log(MONGODB_URL);
