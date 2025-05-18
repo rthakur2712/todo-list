@@ -54,7 +54,6 @@ app.get('/todos/:todo_title', async(req,res)=>{
 // Update the todo
 app.put('/todos/:todo_id',async(req,res)=>{
   try{
-
     const todo_id = req.params.todo_id;
     const oneTodo = await Todo.findOne({_id:todo_id});
     if(!oneTodo){
@@ -65,6 +64,25 @@ app.put('/todos/:todo_id',async(req,res)=>{
     res.json({savedTodo});
   } catch(err){
     res.status(501).json({error:err});
+  }
+})
+
+//Edit the todos
+
+app.post('/todos/:todo_id/edit',async(req,res)=>{
+  console.log("req body",req.body);
+  const newTodoTitle = req.body.newTodoTitle;
+  try{
+    const todo_id = req.params.todo_id;
+    const oneTodo = await Todo.findOne({_id:todo_id});
+    if( !oneTodo ){
+      res.status(404).json({message:"Todo not found"});
+    }
+    oneTodo.title = newTodoTitle;
+    const savedTodo = await oneTodo.save();
+    res.json(savedTodo);
+  } catch(err){
+    res.status(501).json({message:"Backend error in editing todo",err});
   }
 })
 
