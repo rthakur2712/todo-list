@@ -3,6 +3,8 @@ const express = require('express');
 const mongoose = require("mongoose");
 const Todo = require('./models/Todo');
 const app = express();
+const fs = require('fs/promises');
+const path = require('path');
 const PORT = process.env.BACKEND_PORT ||3000;
 
 app.use(express.json());
@@ -11,7 +13,6 @@ app.use(cors());
 BACKEND_PORT = process.env.BACKEND_PORT;
 
 MONGODB_URL = process.env.MONGODB_URL;
-console.log(MONGODB_URL);
 mongoose.connect(MONGODB_URL)
   .then(()=>{console.log("Database connected Successfully!")})
   .catch((err)=>{console.error("Error in connecting db:",{err})});
@@ -28,11 +29,27 @@ app.get('/todos',async(req,res)=>{
   }
 });
 
+// Get a quote
+const quotesFilePath = path.join(__dirname,'quotes.json');
+app.get('/generate-quote', async (req, res) => {
+  // now we just need to return a single quote from here
+  try{
+    const data = await fs.readFile(quotesFilePath,'utf-8');
+    const quotes = JSON.parse(data);
+    //select a random quote
+    const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+    res.json(randomQuote);
+  } catch(err){
+    res.status(500).json({err:"Unable to fetch a quote."});
+  }
+});
+
 // Post a todo
 app.post('/todos',async(req,res)=>{
-  const {title} = req.body;
+  const title = req.body.title;
+  const deadline = req.body.deadline;
   try{
-    const newTodo = new Todo({title});
+    const newTodo = new Todo({title,deadline});
     const savedTodo = await newTodo.save();
     res.status(201).json(savedTodo);
   }catch(err){
@@ -59,7 +76,7 @@ app.put('/todos/:todo_id',async(req,res)=>{
     if(!oneTodo){
       res.status(404).json({message:"Todo Not found"});
     }
-    oneTodo.completed = true;
+    oneTodo.completed = !oneTodo.completed;
     const savedTodo = await oneTodo.save();
     res.json({savedTodo});
   } catch(err){
@@ -70,7 +87,6 @@ app.put('/todos/:todo_id',async(req,res)=>{
 //Edit the todos
 
 app.post('/todos/:todo_id/edit',async(req,res)=>{
-  console.log("req body",req.body);
   const newTodoTitle = req.body.newTodoTitle;
   try{
     const todo_id = req.params.todo_id;

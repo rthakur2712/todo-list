@@ -10,13 +10,19 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@tailwindcss/vite": "^4.1.7",
     "axios": "^1.9.0",
+    "dotenv": "^16.5.0",
+    "postcss": "^8.5.3",
     "react": "^19.1.0",
+    "react-datetime-picker": "^6.0.1",
     "react-dom": "^19.1.0",
-    "react-top-loading-bar": "^3.0.2"
+    "react-top-loading-bar": "^3.0.2",
+    "tailwindcss": "^4.1.7"
   },
   "devDependencies": {
     "@eslint/js": "^9.25.0",
+    "@tailwindcss/postcss": "^4.1.7",
     "@types/react": "^19.1.2",
     "@types/react-dom": "^19.1.2",
     "@vitejs/plugin-react": "^4.4.1",
