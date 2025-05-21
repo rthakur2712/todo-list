@@ -1,28 +1,25 @@
 import React from 'react';
 import TodoItem from './TodoItem';
 
-const TodoList = ({ todos, setTodos, loadingBar, heading }) => {
+const TodoList = ({ todos, setTodos, loadingBar, emptyMessage }) => {
   return (
-    <section className="bg-gray-50 p-4 rounded-lg shadow-sm">
-      <h2 className="text-2xl font-semibold text-gray-800 mb-4">
-        {heading}
-      </h2>
-      <div className="space-y-4">
-        {todos.map(todo => (
-          <TodoItem
-            key={todo._id}
-            todo={todo}
-            setTodos={setTodos}
-            loadingBar={loadingBar}
-          />
-        ))}
-      </div>
-      {todos.length === 0 && (
-        <p className="text-center text-gray-500 mt-6">
-          No todos yet—add your first task above!
-        </p>
+    <>
+      {todos.length === 0 ? (
+        <p className="mt-4 text-center text-gray-400 italic">{emptyMessage}</p>
+      ) : (
+        <ul className="space-y-4 overflow-auto">
+          {todos.map(todo => (
+            <li key={todo._id}>
+              <TodoItem
+                todo={todo}
+                setTodos={setTodos}
+                loadingBar={loadingBar}
+              />
+            </li>
+          ))}
+        </ul>
       )}
-    </section>
+    </>
   );
 };
 
