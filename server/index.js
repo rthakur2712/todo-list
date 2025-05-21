@@ -29,20 +29,6 @@ app.get('/todos',async(req,res)=>{
   }
 });
 
-// Get a quote
-const quotesFilePath = path.join(__dirname,'quotes.json');
-app.get('/generate-quote', async (req, res) => {
-  // now we just need to return a single quote from here
-  try{
-    const data = await fs.readFile(quotesFilePath,'utf-8');
-    const quotes = JSON.parse(data);
-    //select a random quote
-    const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
-    res.json(randomQuote);
-  } catch(err){
-    res.status(500).json({err:"Unable to fetch a quote."});
-  }
-});
 
 // Post a todo
 app.post('/todos',async(req,res)=>{

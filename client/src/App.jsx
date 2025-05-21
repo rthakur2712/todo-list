@@ -3,6 +3,7 @@ import axios from 'axios';
 import LoadingBar from 'react-top-loading-bar';
 import TodoList from '../components/TodoList';
 import AddTodo from '../components/AddTodo';
+import quotes from './assets/quotes.json'
 
 function App() {
   const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
@@ -14,8 +15,10 @@ function App() {
     const fetchData = async () => {
       loadingBar.current.continuousStart();
       try {
-        const { data } = await axios.get(`${BACKEND_URL}/generate-quote`);
-        setQuote(data.quote);
+        console.log(quotes);
+        console.log(quotes[Math.reandom])
+        const quotee = quotes[Math.floor(Math.random()*quotes.length)].quote;
+        setQuote(quotee);
       } catch {
         setQuote('Could not load quote');
       }
