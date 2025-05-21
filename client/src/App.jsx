@@ -41,7 +41,7 @@ function App() {
       {/* Hero Quote */}
       <header className="bg-white/80 backdrop-blur-sm py-12 shadow-md">
         <div className="mx-auto max-w-3xl px-6 text-center">
-          <h1 className="text-3xl md:text-5xl font-extrabold text-indigo-600">
+          <h1 className="text-xl md:text-3xl font-extrabold text-indigo-600">
             “{quote}”
           </h1>
         </div>
@@ -55,6 +55,7 @@ function App() {
 
         {/* Todo Lists Grid */}
         <section className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {activeTodos.length>0 && 
           <div className="bg-white rounded-xl shadow-lg p-5 flex flex-col">
             <h2 className="text-xl font-semibold text-gray-700 mb-3">Active</h2>
             <TodoList
@@ -62,9 +63,11 @@ function App() {
               setTodos={setTodos}
               loadingBar={loadingBar}
               emptyMessage="No active tasks!"
-            />
+              />
           </div>
-
+          }
+          {
+            completedTodos.length>0 &&
           <div className="bg-white rounded-xl shadow-lg p-5 flex flex-col">
             <h2 className="text-xl font-semibold text-gray-700 mb-3">Completed</h2>
             <TodoList
@@ -72,9 +75,11 @@ function App() {
               setTodos={setTodos}
               loadingBar={loadingBar}
               emptyMessage="Nothing done yet!"
-            />
+              />
           </div>
-
+          }
+          {
+            backlogTodos.length>0 &&
           <div className="bg-white rounded-xl shadow-lg p-5 flex flex-col">
             <h2 className="text-xl font-semibold text-gray-700 mb-3">Backlog</h2>
             <TodoList
@@ -82,8 +87,9 @@ function App() {
               setTodos={setTodos}
               loadingBar={loadingBar}
               emptyMessage="No overdue tasks!"
-            />
+              />
           </div>
+          }
         </section>
       </main>
     </div>
